@@ -2,6 +2,7 @@ package com.example.javi.pruebasqlite;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -9,12 +10,15 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    RecyclerView myRecycler;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
+        myRecycler = (RecyclerView) findViewById(R.id.MyRecycler);
 
     }
 
