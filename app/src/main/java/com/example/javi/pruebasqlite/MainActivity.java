@@ -1,5 +1,6 @@
 package com.example.javi.pruebasqlite;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         myRecycler = (RecyclerView) findViewById(R.id.MyRecycler);
 
+        
     }
 
     @Override
