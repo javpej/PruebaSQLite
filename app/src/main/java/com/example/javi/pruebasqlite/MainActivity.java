@@ -3,6 +3,7 @@ package com.example.javi.pruebasqlite;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     String stDesc;
 
     ArrayList<Item> aItems;
+    Adapter myAdapter;
 
 
     @Override
@@ -39,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
         RellenarDatos();
 
-        Adapter myAdapter = new Adapter(this, aItems);
+        myAdapter = new Adapter(this, aItems);
         myRecycler.setLayoutManager(new LinearLayoutManager(this));
         myRecycler.setAdapter(myAdapter);
     }
@@ -115,9 +117,13 @@ public class MainActivity extends AppCompatActivity {
             String sNuevaFecha = data.getStringExtra("FECHA");
             String sNuevaDesc = data.getStringExtra("DESC");
 
-
+            Item itemnew = new Item(sNuevaCiudad,sNuevaFecha,sNuevaDesc);
+            aItems.add(itemnew);
+            myAdapter.notifyDataSetChanged();
 
         }
 
     }
+
+
 }
