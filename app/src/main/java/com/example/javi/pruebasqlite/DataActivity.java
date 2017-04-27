@@ -58,19 +58,23 @@ public class DataActivity extends AppCompatActivity {
 
     public void pulsarBotonAceptar(View v){
 
-        String ciudad = edCiudad.getText().toString();
-        String Fecha = edFecha.getText().toString();
-        String Desc = edDesc.getText().toString();
 
-        if (ciudad == "" || Fecha == "" || Desc == ""){
 
-            Toast.makeText(this, "No has rellenado todos los campos", Toast.LENGTH_LONG).show();
+        if (edCiudad.getText().toString().trim().length()==0 || edFecha.getText().toString().trim().length()==0 || edDesc.getText().toString().trim().length()==0){
+
+            Toast.makeText(this, "No has rellenado todos los campos", Toast.LENGTH_SHORT).show();
 
             edCiudad.setText("");
             edFecha.setText("");
             edDesc.setText("");
 
-        } else{
+        }
+
+        else{
+
+            String ciudad = edCiudad.getText().toString();
+            String Fecha = edFecha.getText().toString();
+            String Desc = edDesc.getText().toString();
 
             Intent imessage = getIntent();
 
