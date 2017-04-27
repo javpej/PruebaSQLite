@@ -1,5 +1,6 @@
 package com.example.javi.pruebasqlite;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.add_action:
 
-                Toast.makeText(this, "Has pulsado Añadir", Toast.LENGTH_SHORT).show();
+                Intent iadd = new Intent(this, DataActivity.class);
+                startActivityForResult(iadd, 2);
 
         }
 
