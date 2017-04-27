@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 
 /**
@@ -49,11 +50,15 @@ public class DataActivity extends AppCompatActivity {
             case R.id.action_cancel:
 
                 finish();
-
         }
         return super.onOptionsItemSelected(item);
     }
 
+    public void pulsarBotonAceptar(View v){
 
+        String ciudad = edCiudad.getText().toString();
+        String Fecha = edFecha.getText().toString();
+
+    }
 
 }
