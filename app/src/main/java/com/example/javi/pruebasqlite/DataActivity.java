@@ -1,5 +1,6 @@
 package com.example.javi.pruebasqlite;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Javi on 27/4/17.
@@ -58,6 +60,29 @@ public class DataActivity extends AppCompatActivity {
 
         String ciudad = edCiudad.getText().toString();
         String Fecha = edFecha.getText().toString();
+        String Desc = edDesc.getText().toString();
+
+        if (ciudad == "" || Fecha == "" || Desc == ""){
+
+            Toast.makeText(this, "No has rellenado todos los campos", Toast.LENGTH_LONG).show();
+
+            edCiudad.setText("");
+            edFecha.setText("");
+            edDesc.setText("");
+
+        } else{
+
+            Intent imessage = getIntent();
+
+            imessage.putExtra("CIUDAD" , ciudad);
+            imessage.putExtra("FECHA", Fecha);
+            imessage.putExtra("DESC", Desc);
+
+            setResult(2, imessage);
+
+            finish();
+
+        }
 
     }
 
