@@ -13,11 +13,10 @@ public class Item {
     String sDesc;
     Context context;
 
-    public Item(String sCiudad, String sFecha, String sDesc, Context context) {
+    public Item(String sCiudad, String sFecha, String sDesc) {
         this.sCiudad = sCiudad;
         this.sFecha = sFecha;
         this.sDesc = sDesc;
-        this.context = context;
     }
 
     public String getsCiudad() {
@@ -44,11 +43,5 @@ public class Item {
         this.sDesc = sDesc;
     }
 
-    public Context getContext() {
-        return context;
-    }
 
-    public void setContext(Context context) {
-        this.context = context;
-    }
 }

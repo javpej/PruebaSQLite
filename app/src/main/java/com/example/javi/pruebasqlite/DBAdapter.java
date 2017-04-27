@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBAdapter extends SQLiteOpenHelper {
 
-    String SqlCreate = "CREATE TABLE viajes (id INTEGER PRIMARY KEY AUTOINCREMENT, ciudad TEXT, fecha TEXT, descripcion TEXT)";
+    String SqlCreate = "CREATE TABLE viajes (ciudad TEXT, fecha TEXT, descripcion TEXT)";
 
     public DBAdapter(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
