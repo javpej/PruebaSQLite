@@ -61,7 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.about_action:
 
-                Toast.makeText(this, "Has pulsado Acerca de...", Toast.LENGTH_SHORT).show();
+                Intent iabout = new Intent(this, AboutActivity.class);
+                startActivity(iabout);
 
             case R.id.add_action:
 
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (db == null){
 
-            Toast.makeText(this, "No se encuentra Base de Datos", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No existe la tabla", Toast.LENGTH_LONG).show();
 
         } else {
 
