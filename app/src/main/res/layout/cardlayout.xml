@@ -5,6 +5,10 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="200dp"
+    android:elevation="2dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
     card_view:cardCornerRadius="4dp">
 
     <RelativeLayout
