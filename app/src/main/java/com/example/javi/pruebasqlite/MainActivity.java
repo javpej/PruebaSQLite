@@ -1,5 +1,6 @@
 package com.example.javi.pruebasqlite;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -111,18 +112,27 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==2){
+        if(requestCode==2) {
 
             String sNuevaCiudad = data.getStringExtra("CIUDAD");
             String sNuevaFecha = data.getStringExtra("FECHA");
             String sNuevaDesc = data.getStringExtra("DESC");
 
-            Item itemnew = new Item(sNuevaCiudad,sNuevaFecha,sNuevaDesc);
+            Item itemnew = new Item(sNuevaCiudad, sNuevaFecha, sNuevaDesc);
             aItems.add(itemnew);
             myAdapter.notifyDataSetChanged();
 
-        }
+            DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
+            SQLiteDatabase db = helper.getWritableDatabase();
 
+            ContentValues values = new ContentValues();
+
+            values.put("ciudad", sNuevaCiudad);
+            values.put("fecha", sNuevaFecha);
+            values.put("descripcion",sNuevaDesc);
+            db.insert("viajes",null, values);
+            db.close();
+        }
     }
 
 
