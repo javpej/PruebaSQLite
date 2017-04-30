@@ -51,13 +51,15 @@ public class DataActivity extends AppCompatActivity {
 
             case R.id.action_cancel:
 
+                Intent icancel = getIntent();
+                setResult(RESULT_CANCELED, icancel);
+
                 finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
     public void pulsarBotonAceptar(View v){
-
 
 
         if (edCiudad.getText().toString().trim().length()==0 || edFecha.getText().toString().trim().length()==0 || edDesc.getText().toString().trim().length()==0){

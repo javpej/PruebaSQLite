@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
                 Intent iabout = new Intent(this, AboutActivity.class);
                 startActivity(iabout);
 
+                break;
+
             case R.id.add_action:
 
                 Intent iadd = new Intent(this, DataActivity.class);
@@ -115,24 +117,30 @@ public class MainActivity extends AppCompatActivity {
 
         if(requestCode==2) {
 
-            String sNuevaCiudad = data.getStringExtra("CIUDAD");
-            String sNuevaFecha = data.getStringExtra("FECHA");
-            String sNuevaDesc = data.getStringExtra("DESC");
+            if(resultCode == RESULT_OK) {
 
-            Item itemnew = new Item(sNuevaCiudad, sNuevaFecha, sNuevaDesc);
-            aItems.add(itemnew);
-            myAdapter.notifyDataSetChanged();
+                String sNuevaCiudad = data.getStringExtra("CIUDAD");
+                String sNuevaFecha = data.getStringExtra("FECHA");
+                String sNuevaDesc = data.getStringExtra("DESC");
 
-            DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
-            SQLiteDatabase db = helper.getWritableDatabase();
+                Item itemnew = new Item(sNuevaCiudad, sNuevaFecha, sNuevaDesc);
+                aItems.add(itemnew);
+                myAdapter.notifyDataSetChanged();
 
-            ContentValues values = new ContentValues();
+                DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
+                SQLiteDatabase db = helper.getWritableDatabase();
 
-            values.put("ciudad", sNuevaCiudad);
-            values.put("fecha", sNuevaFecha);
-            values.put("descripcion",sNuevaDesc);
-            db.insert("viajes",null, values);
-            db.close();
+                ContentValues values = new ContentValues();
+
+                values.put("ciudad", sNuevaCiudad);
+                values.put("fecha", sNuevaFecha);
+                values.put("descripcion", sNuevaDesc);
+                db.insert("viajes", null, values);
+                db.close();
+            } else if(resultCode == RESULT_CANCELED){
+
+                return;
+            }
         }
     }
 
