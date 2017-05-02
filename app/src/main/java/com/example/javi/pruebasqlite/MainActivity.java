@@ -1,10 +1,13 @@
 package com.example.javi.pruebasqlite;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -66,6 +69,34 @@ public class MainActivity extends AppCompatActivity {
 
                 break;
 
+            case R.id.restore_action:
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+
+                builder.setTitle("Restaurar Datos de Fábrica");
+                builder.setIcon(R.drawable.ic_warning);
+                builder.setMessage("Esto restaurará la aplicación a su estado original de fábrica");
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.cancel();
+                    }
+                });
+
+                builder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        ResetearTabla();
+                    }
+                });
+
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+                break;
+
             case R.id.add_action:
 
                 Intent iadd = new Intent(this, DataActivity.class);
@@ -115,33 +146,46 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==2) {
+        if (requestCode == 2) {
 
-            if(resultCode == RESULT_OK) {
 
-                String sNuevaCiudad = data.getStringExtra("CIUDAD");
-                String sNuevaFecha = data.getStringExtra("FECHA");
-                String sNuevaDesc = data.getStringExtra("DESC");
+            String sNuevaCiudad = data.getStringExtra("CIUDAD");
+            String sNuevaFecha = data.getStringExtra("FECHA");
+            String sNuevaDesc = data.getStringExtra("DESC");
 
-                Item itemnew = new Item(sNuevaCiudad, sNuevaFecha, sNuevaDesc);
-                aItems.add(itemnew);
-                myAdapter.notifyDataSetChanged();
+            Item itemnew = new Item(sNuevaCiudad, sNuevaFecha, sNuevaDesc);
+            aItems.add(itemnew);
+            myAdapter.notifyDataSetChanged();
 
-                DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
-                SQLiteDatabase db = helper.getWritableDatabase();
+            DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
+            SQLiteDatabase db = helper.getWritableDatabase();
 
-                ContentValues values = new ContentValues();
+            ContentValues values = new ContentValues();
 
-                values.put("ciudad", sNuevaCiudad);
-                values.put("fecha", sNuevaFecha);
-                values.put("descripcion", sNuevaDesc);
-                db.insert("viajes", null, values);
-                db.close();
-            } else if(resultCode == RESULT_CANCELED){
+            values.put("ciudad", sNuevaCiudad);
+            values.put("fecha", sNuevaFecha);
+            values.put("descripcion", sNuevaDesc);
+            db.insert("viajes", null, values);
+            db.close();
+
+            if (resultCode == RESULT_CANCELED) {
 
                 return;
             }
+
         }
+    }
+
+    public void ResetearTabla(){
+
+        getApplicationContext().deleteDatabase("viajes");
+
+        aItems.clear();
+
+        RellenarDatos();
+
+        myAdapter.notifyDataSetChanged();
+
     }
 
 
