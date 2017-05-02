@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -13,15 +14,33 @@ import java.util.ArrayList;
  * Created by Javi on 25/4/17.
  */
 
-public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
+public class Adapter extends RecyclerView.Adapter<MyViewHolder> implements View.OnLongClickListener{
 
     Context context;
     ArrayList<Item> itemArraList;
+    MyLongClickListener myLongClickListener;
 
+    public interface MyLongClickListener{
+
+        boolean onItemlongClick (View view, int position);
+
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+        myLongClickListener.onItemlongClick(getPosition
+
+        return true;
+    }
+
+    
     public Adapter(Context context, ArrayList<Item> itemArraList) {
         this.context = context;
         this.itemArraList = itemArraList;
     }
+
+
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -43,6 +62,9 @@ public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
         holder.tvCiudad.setText(itemselected.getsCiudad());
         holder.tvFecha.setText(itemselected.getsFecha());
         holder.tvDesc.setText(itemselected.getsDesc());
+        final ImageView img = holder.ivCheck;
+        holder.itemView.setOnLongClickListener(this);
+
     }
 
     @Override
@@ -51,12 +73,19 @@ public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
         return itemArraList.size();
     }
 
+    public void setMyLongClickListener(MyLongClickListener clickListener){
+
+        clickListener = this.myLongClickListener;
+    }
+
+
 }
  class MyViewHolder extends RecyclerView.ViewHolder {
 
      TextView tvCiudad;
      TextView tvFecha;
      TextView tvDesc;
+     ImageView ivCheck;
 
     public MyViewHolder(View itemView) {
 
@@ -65,5 +94,10 @@ public class Adapter extends RecyclerView.Adapter<MyViewHolder> {
         tvCiudad = (TextView) itemView.findViewById(R.id.TVCiudad);
         tvFecha = (TextView) itemView.findViewById(R.id.TVFecha);
         tvDesc = (TextView) itemView.findViewById(R.id.TVDescripcion);
+        ivCheck = (ImageView) itemView.findViewById(R.id.IVCheck);
+
+
     }
+
+
 }

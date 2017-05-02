@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -48,6 +49,19 @@ public class MainActivity extends AppCompatActivity {
         myAdapter = new Adapter(this, aItems);
         myRecycler.setLayoutManager(new LinearLayoutManager(this));
         myRecycler.setAdapter(myAdapter);
+
+        myAdapter.setMyLongClickListener(new Adapter.MyLongClickListener() {
+            @Override
+            public boolean onItemlongClick(View view, int position) {
+
+                String selectedCiudad = aItems.get(position).getsCiudad();
+
+                Log.d("Ciudad Seleccionada", selectedCiudad);
+
+                return true;
+            }
+        });
+
     }
 
     @Override
