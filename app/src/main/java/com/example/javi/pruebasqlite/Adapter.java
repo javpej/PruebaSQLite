@@ -29,7 +29,7 @@ public class Adapter extends RecyclerView.Adapter<MyViewHolder> implements View.
     @Override
     public boolean onLongClick(View v) {
 
-        myLongClickListener.onItemlongClick(getPosition
+        myLongClickListener.onItemlongClick(v, getPo
 
         return true;
     }
