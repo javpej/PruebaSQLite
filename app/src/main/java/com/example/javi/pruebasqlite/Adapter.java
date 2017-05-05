@@ -1,11 +1,13 @@
 package com.example.javi.pruebasqlite;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -68,11 +70,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         TextView tvFecha;
         TextView tvDesc;
         ImageView imCheck;
+        RelativeLayout layout;
 
         public MyViewHolder(View itemView) {
 
             super(itemView);
 
+            layout = (RelativeLayout) itemView.findViewById(R.id.LayoutCard);
             tvCiudad = (TextView) itemView.findViewById(R.id.TVCiudad);
             tvFecha = (TextView) itemView.findViewById(R.id.TVFecha);
             tvDesc = (TextView) itemView.findViewById(R.id.TVDescripcion);
@@ -84,6 +88,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         public boolean onLongClick(View v) {
 
             if (myLongClickListener != null) {
+                layout.setBackgroundColor(ContextCompat.getColor(context ,R.color.colorBackground));
                 imCheck.setVisibility(View.VISIBLE);
                 myLongClickListener.myLongClick(v, getAdapterPosition());
             }
