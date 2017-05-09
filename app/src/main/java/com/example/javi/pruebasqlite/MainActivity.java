@@ -32,12 +32,14 @@ public class MainActivity extends AppCompatActivity implements MyLongClickListen
 
     ArrayList<Item> aItems;
     Adapter myAdapter;
-
+    Boolean deleteClicked;
+    int positiondelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        deleteClicked = false;
         Toolbar toolbar = (Toolbar) findViewById(R.id.Toolbar);
         setSupportActionBar(toolbar);
         myRecycler = (RecyclerView) findViewById(R.id.MyRecycler);
@@ -57,6 +59,27 @@ public class MainActivity extends AppCompatActivity implements MyLongClickListen
 
         getMenuInflater().inflate(R.menu.menu_principal, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+
+        if (deleteClicked == true){
+
+            menu.findItem(R.id.add_action).setVisible(false);
+            menu.findItem(R.id.action_cancelmain).setVisible(true);
+            menu.findItem(R.id.action_remove).setVisible(true);
+
+        }else {
+
+            menu.findItem(R.id.add_action).setVisible(true);
+            menu.findItem(R.id.action_cancelmain).setVisible(false);
+            menu.findItem(R.id.action_remove).setVisible(false);
+
+        }
+
+
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -103,8 +126,43 @@ public class MainActivity extends AppCompatActivity implements MyLongClickListen
 
                 Intent iadd = new Intent(this, DataActivity.class);
                 startActivityForResult(iadd, 2);
+                break;
+
+            case R.id.action_cancel:
+
+                deleteClicked = false;
+                invalidateOptionsMenu();
+                break;
+
+            case R.id.action_remove:
+
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                builder1.setTitle("Eliminar Datos");
+                builder1.setMessage("¿Esta Seguro que desea eliminar los datos señalados?");
+                builder1.setIcon(R.drawable.ic_warning);
+                builder1.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        eliminarDatos();
+                        deleteClicked = false;
+                        invalidateOptionsMenu();
+
+                    }
+                });
+                builder1.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                      dialog.cancel();
+                    }
+                });
+
+                AlertDialog alertDialog = builder1.create();
+                alertDialog.show();
 
         }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -194,7 +252,24 @@ public class MainActivity extends AppCompatActivity implements MyLongClickListen
     @Override
     public void myLongClick(View view, int position) {
 
-        Toast.makeText(this, "Hecho!!", Toast.LENGTH_SHORT).show();
+        deleteClicked = true;
+        invalidateOptionsMenu();
+        positiondelete = position;
 
     }
+
+    public void eliminarDatos(){
+
+        String sqlCiudad = "'"+ aItems.get(positiondelete).getsCiudad().toString()+"'";
+
+        DBAdapter helper = new DBAdapter(this, "viajes", null, 1);
+        SQLiteDatabase db =helper.getWritableDatabase();
+        db.execSQL("DELETE FROM viajes WHERE ciudad ="+sqlCiudad);
+        db.close();
+        aItems.remove(positiondelete);
+        myAdapter.notifyDataSetChanged();
+
+
+    }
+
 }

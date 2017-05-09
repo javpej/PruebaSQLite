@@ -17,10 +17,30 @@
     </item>
 
     <item
+        android:id="@+id/action_cancelmain"
+        android:title="Cancelar"
+        android:visible="false"
+        android:icon="@drawable/ic_cancel"
+        app:showAsAction="always">
+
+    </item>
+
+    <item
         android:id="@+id/add_action"
         android:title="Añadir"
+        android:visible="true"
         app:showAsAction="always"
         android:icon="@drawable/ic_add_">
+
+    </item>
+
+    <item
+        android:id="@+id/action_remove"
+        android:title="Eliminar"
+        android:visible="false"
+        android:icon="@drawable/ic_delete"
+        app:showAsAction="always"
+        >
 
     </item>
 

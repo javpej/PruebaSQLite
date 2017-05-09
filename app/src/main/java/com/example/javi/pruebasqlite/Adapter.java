@@ -87,12 +87,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         @Override
         public boolean onLongClick(View v) {
 
-            if (myLongClickListener != null) {
-                layout.setBackgroundColor(ContextCompat.getColor(context ,R.color.colorBackground));
-                imCheck.setVisibility(View.VISIBLE);
-                myLongClickListener.myLongClick(v, getAdapterPosition());
-            }
-           return true;
+
+            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.colorBackground));
+            imCheck.setVisibility(View.VISIBLE);
+            myLongClickListener.myLongClick(v, getAdapterPosition());
+
+            return true;
         }
+
     }
 }

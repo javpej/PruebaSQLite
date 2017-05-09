@@ -9,4 +9,5 @@ import android.view.View;
 public interface MyLongClickListener {
 
     public void myLongClick(View view, int position);
+
 }
