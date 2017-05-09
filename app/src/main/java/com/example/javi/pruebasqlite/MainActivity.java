@@ -246,6 +246,8 @@ public class MainActivity extends AppCompatActivity implements MyLongClickListen
 
         myAdapter.notifyDataSetChanged();
 
+        Toast.makeText(this, "Se han reestablecido los datos de fábrica", Toast.LENGTH_LONG).show();
+
     }
 
 

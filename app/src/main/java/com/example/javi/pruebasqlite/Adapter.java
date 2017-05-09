@@ -1,6 +1,7 @@
 package com.example.javi.pruebasqlite;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,6 +51,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         holder.tvCiudad.setText(itemselected.getsCiudad());
         holder.tvFecha.setText(itemselected.getsFecha());
         holder.tvDesc.setText(itemselected.getsDesc());
+        holder.imCheck.setVisibility(View.INVISIBLE);
+        holder.layout.setBackgroundColor(ContextCompat.getColor(context, R.color.cardview_light_background));
 
     }
 
@@ -63,6 +66,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         myLongClickListener = this.myLongClickListener;
     }
+    
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener {
 
